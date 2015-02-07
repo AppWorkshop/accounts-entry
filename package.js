@@ -1,8 +1,8 @@
 Package.describe({
-    summary: "Make signin and signout their own pages with routes.",
+    summary: "Make signin and signout their own pages with routes. This is joshowens:accounts-entry with some minor changes (pull requests #345, #346 and #347). If in doubt, use joshowens:accounts-entry.",
     version: '1.0.3',
-    name: "joshowens:accounts-entry",
-    githubUrl: 'https://github.com/Differential/accounts-entry',
+    name: "cunneen:accounts-entry",
+    githubUrl: 'https://github.com/cunneen/accounts-entry',
 });
 
 Package.onUse(function(api) {
