@@ -1,6 +1,6 @@
 Package.describe({
     summary: "This is joshowens:accounts-entry with pull requests #345, #346, #347, #348 and #349.",
-    version: '1.0.3',
+    version: '1.0.4',
     name: "cunneen:accounts-entry",
     githubUrl: 'https://github.com/cunneen/accounts-entry',
 });
