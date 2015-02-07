@@ -1,8 +1,8 @@
 Package.describe({
-    summary: "Make signin and signout their own pages with routes.",
-    version: '1.0.3',
-    name: "joshowens:accounts-entry",
-    githubUrl: 'https://github.com/Differential/accounts-entry',
+    summary: "This is joshowens:accounts-entry with PRs #350 and #351, as of 056d87b (8 Feb).",
+    version: '1.0.6',
+    name: "cunneen:accounts-entry",
+    githubUrl: 'https://github.com/cunneen/accounts-entry',
 });
 
 Package.onUse(function(api) {
@@ -92,7 +92,7 @@ Package.onTest(function (api) {
             'coffeescript'
             ]);
   api.use(['iron:router', 'softwarerero:accounts-t9n', 'joshowens:simple-form'], ['client', 'server']);
-  api.use('joshowens:accounts-entry');
+  api.use('cunneen:accounts-entry');
 
   api.addFiles(['tests/route.coffee', 'tests/client.html', 'tests/client.coffee'], 'client');
 });
