@@ -1,6 +1,6 @@
 Package.describe({
-    summary: "This is joshowens:accounts-entry with PRs #350 and #351, as of 056d87b (8 Feb).",
-    version: '1.0.6',
+    summary: "This is joshowens:accounts-entry , with some bleeding-edge features that are not in the official release yet.",
+    version: '1.0.7',
     name: "cunneen:accounts-entry",
     githubUrl: 'https://github.com/cunneen/accounts-entry',
 });
