@@ -1,6 +1,6 @@
 Package.describe({
     summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
-    version: '1.0.7',
+    version: '1.0.8',
     name: "cunneen:accounts-entry",
     githubUrl: 'https://github.com/cunneen/accounts-entry',
 });
