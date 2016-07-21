@@ -1,14 +1,14 @@
 Package.describe({
     summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
-    version: '1.0.8',
-    name: "cunneen:accounts-entry",
-    githubUrl: 'https://github.com/cunneen/accounts-entry',
+    version: '1.0.9',
+    name: "appworkshop:accounts-entry",
+    githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom("METEOR@0.9.0");
+  api.versionsFrom("METEOR@1.2.0.1");
 
-  api.use(['iron:router@1.0.3', 'softwarerero:accounts-t9n@1.0.3', 'joshowens:simple-form@0.2.2', 'sacha:spin@2.0.4'], ['client', 'server']);
+  api.use(['iron:router@1.0.3', 'softwarerero:accounts-t9n@1.0.3', 'joshowens:simple-form@0.2.1', 'sacha:spin@2.0.4'], ['client', 'server']);
   // CLIENT
   api.use([
     'deps',
@@ -94,7 +94,7 @@ Package.onTest(function (api) {
             'coffeescript'
             ]);
   api.use(['iron:router', 'softwarerero:accounts-t9n', 'joshowens:simple-form'], ['client', 'server']);
-  api.use('cunneen:accounts-entry');
+  api.use('appworkshop:accounts-entry');
 
   api.addFiles(['tests/route.coffee', 'tests/client.html', 'tests/client.coffee'], 'client');
 });
