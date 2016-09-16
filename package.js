@@ -1,27 +1,32 @@
 Package.describe({
-    summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
-    version: '1.0.9',
-    name: "appworkshop:accounts-entry",
-    githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
+  summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
+  version: '1.1.0',
+  name: "appworkshop:accounts-entry",
+  githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
 });
 
-Package.onUse(function(api) {
-  api.versionsFrom("METEOR@1.2.0.1");
+Package.onUse(function (api) {
+  api.versionsFrom("METEOR@1.4.1.1");
 
-  api.use(['iron:router@1.0.3', 'softwarerero:accounts-t9n@1.0.3', 'joshowens:simple-form@0.2.1', 'sacha:spin@2.0.4'], ['client', 'server']);
+  api.use([
+        'iron:router',
+        'softwarerero:accounts-t9n',
+        'joshowens:simple-form',
+        'sacha:spin'],
+      ['client', 'server']);
   // CLIENT
   api.use([
-    'deps',
-    'service-configuration',
-    'accounts-base',
-    'underscore',
-    'templating',
-    'handlebars',
-    'session',
-    'coffeescript',
-    'less',
-    'sha']
-  , 'client');
+        'deps',
+        'service-configuration',
+        'accounts-base',
+        'underscore',
+        'templating',
+        'handlebars',
+        'session',
+        'coffeescript',
+        'less',
+        'sha']
+      , 'client');
 
 
   api.addFiles([
@@ -86,13 +91,13 @@ Package.onUse(function(api) {
 
 Package.onTest(function (api) {
   api.use(['tinytest',
-            'underscore',
-            'handlebars',
-            'test-helpers',
-            'templating',
-            'mongo-livedata',
-            'coffeescript'
-            ]);
+    'underscore',
+    'handlebars',
+    'test-helpers',
+    'templating',
+    'mongo-livedata',
+    'coffeescript'
+  ]);
   api.use(['iron:router', 'softwarerero:accounts-t9n', 'joshowens:simple-form'], ['client', 'server']);
   api.use('appworkshop:accounts-entry');
 
