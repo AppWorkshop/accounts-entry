@@ -102,4 +102,4 @@ _.each Router.routes, (route)->
 Router.onStop ->
   # If the route is an entry route, no need to save it
   if (!_.contains(exclusions, Router.current().route?.getName()))
-    Session.set('fromWhere', window.location.pathname)
+    Session.set('fromWhere', Router.current().route?.getName())
