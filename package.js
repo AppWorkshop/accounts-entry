@@ -10,6 +10,7 @@ Package.onUse(function (api) {
 
   api.use([
     'ecmascript',
+    'standard-app-packages',
     'iron:router@1.0.13',
     'softwarerero:accounts-t9n@1.3.4',
     'joshowens:simple-form@0.2.1',
@@ -18,13 +19,6 @@ Package.onUse(function (api) {
   ], ['client', 'server']);
   // CLIENT
   api.use([
-        'deps',
-        'service-configuration',
-        'accounts-base',
-        'underscore',
-        'templating',
-        'handlebars',
-        'session',
         'coffeescript',
         'less',
         'sha']
