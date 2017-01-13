@@ -1,18 +1,18 @@
 Package.describe({
   summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
-  version: '1.1.0',
+  version: '1.1.1',
   name: "appworkshop:accounts-entry",
   githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom("METEOR@1.4.1.1");
+  api.versionsFrom("METEOR@1.4.2.3");
 
   api.use([
-        'iron:router@1.0.13',
-        'softwarerero:accounts-t9n@1.3.4',
-        'joshowens:simple-form@0.2.2',
-        'sacha:spin@2.3.1'],
+        'iron:router',
+        'softwarerero:accounts-t9n',
+        'joshowens:simple-form',
+        'sacha:spin'],
       ['client', 'server']);
   // CLIENT
   api.use([
