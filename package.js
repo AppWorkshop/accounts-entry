@@ -9,11 +9,13 @@ Package.onUse(function (api) {
   api.versionsFrom("METEOR@1.4.2.3");
 
   api.use([
-        'iron:router',
-        'softwarerero:accounts-t9n',
-        'joshowens:simple-form',
-        'sacha:spin'],
-      ['client', 'server']);
+    'ecmascript',
+    'iron:router@1.0.13',
+    'softwarerero:accounts-t9n@1.3.4',
+    'joshowens:simple-form@0.2.1',
+    'sacha:spin@2.3.1'
+
+  ], ['client', 'server']);
   // CLIENT
   api.use([
         'deps',
