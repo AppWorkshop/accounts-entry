@@ -29,6 +29,8 @@
         {{> entryError}}
         {{#if passwordLoginService}}
           <form class="entry-form {{signupClass}}" id='signUp'>
+            {{> entryExtraSignUpFields}}
+
             {{#if showUsername}}
               <div class="form-group">
                 <label>{{t9n "username"}}</label>
@@ -40,16 +42,16 @@
               <div class="form-group">
                 <label>{{t9n "emailAddress"}}</label>
                 {{#if showUsername}}
-                  <input type="email" class="form-control" value='{{emailAddress}}'  autocapitalize="none" autocomplete="off" autocorrect="off">
+                  <input name="email" type="email" class="form-control" value='{{emailAddress}}'  autocapitalize="none" autocomplete="email" autocorrect="off">
                 {{else}}
-                  <input autofocus type="email" class="form-control" value='{{emailAddress}}'  autocapitalize="none" autocomplete="off" autocorrect="off" >
+                  <input name="email" autofocus type="email" class="form-control" value='{{emailAddress}}'  autocapitalize="none" autocomplete="email" autocorrect="off" >
                 {{/if}}
               </div>
             {{/if}}
 
             <div class="form-group">
               <label>{{t9n "password"}}</label>
-              <input type="password" class="form-control" value=''>
+              <input type="password" class="form-control" value='' autocomplete="new-password">
             </div>
 
             {{#if showSignupCode}}
@@ -59,7 +61,6 @@
               </div>
             {{/if}}
 
-            {{> entryExtraSignUpFields}}
             <button type="submit" class="submit btn btn-block btn-default">{{t9n "signUp"}}</button>
           </form>
         {{/if}}
