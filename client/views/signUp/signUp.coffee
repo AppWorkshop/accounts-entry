@@ -75,9 +75,22 @@ AccountsEntry.entrySignUpEvents = {
         undefined
     if AccountsEntry.settings.emailToLower and email then email = email.toLowerCase()
 
+    firstname =
+      if t.find('input[name="firstname"]')
+        t.find('input[name="firstname"]').value
+      else
+        undefined
+
+    lastname = 
+      if t.find('input[name="lastname"]')
+        t.find('input[name="lastname"]').value
+      else
+        undefined
+
     formValues = SimpleForm.processForm(event.target)
     extraFields = _.pluck(AccountsEntry.settings.extraSignUpFields, 'field')
     filteredExtraFields = _.pick(formValues, extraFields)
+    filteredExtraFields = _.extend(filteredExtraFields, {firstname : firstname, lastname : lastname})
     password = t.find('input[type="password"]').value
 
     fields = AccountsEntry.settings.passwordSignupFields
@@ -172,6 +185,64 @@ AccountsEntry.entrySignUpEvents = {
         console.log err
         Session.set 'entryError', t9n("error.signupCodeIncorrect")
         return
+
+  'click #login-facebook': (event, t) ->
+    event.preventDefault()
+    console.log("running...")
+
+    organization =
+      if t.find('input[name="organization"]')
+        t.find('input[name="organization"]').value
+      else
+        undefined
+
+    appName =
+      if t.find('input[name="appName"]')
+        t.find('input[name="appName"]').value
+      else
+        undefined
+
+    formValues = SimpleForm.processForm(event.target)
+    extraFields = _.pluck(AccountsEntry.settings.extraSignUpFields, 'field')
+    filteredExtraFields = _.pick(formValues, extraFields)
+
+    errorMsg = ''
+
+    if organization.length < 5
+        errMsg = "Please fill out the Organization Name field. It must be at least 7 characters long."
+        Session.set 'entryError', errMsg
+        return
+    else
+        Session.set 'entryError', ''
+
+    formValues = SimpleForm.processForm(event.target)
+    extraFields = _.pluck(AccountsEntry.settings.extraSignUpFields, 'field')
+    filteredExtraFields = _.pick(formValues, extraFields)
+
+    newUserData = 
+      profile : filteredExtraFields
+
+    Session.set 'talkingToServer', true
+
+    if AccountsEntry.settings.signInAfterRegistration is true
+      Session.set 'talkingToServer', true
+      Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']},
+        (err) -> 
+          Session.set 'talkingToServer', false
+          if (err)
+            console.log('error login in with facebook: ', err)
+            return
+          else
+            Meteor.call 'addOrg', organization, appName
+            if Session.get 'fromWhere'
+              Router.go Session.get('fromWhere')
+              Session.set 'fromWhere', undefined
+            else
+              Router.go AccountsEntry.settings.dashboardRoute
+      )
+    else
+      if AccountsEntry.settings.emailVerificationPendingRoute
+        Router.go AccountsEntry.settings.emailVerificationPendingRoute
 }
 
 Template.entrySignUp.helpers(AccountsEntry.entrySignUpHelpers)

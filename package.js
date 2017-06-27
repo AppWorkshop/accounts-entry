@@ -1,7 +1,7 @@
 Package.describe({
   summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
   version: '1.1.2',
-  name: "appworkshop:accounts-entry",
+  name: "appworkshop2:accounts-entry",
   githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
 });
 
