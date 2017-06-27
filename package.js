@@ -1,8 +1,8 @@
 Package.describe({
-  summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
-  version: '1.1.2',
-  name: "appworkshop2:accounts-entry",
-  githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
+  summary: "Accounts auth package for juto. Forked from appworkshop:accounts-entry, which is forked from joshowens:accounts-entry",
+  version: '1.1.3',
+  name: "juto:accounts-entry",
+  githubUrl: '',
 });
 
 Package.onUse(function (api) {
