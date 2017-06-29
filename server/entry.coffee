@@ -35,6 +35,18 @@ Meteor.startup ->
       if (user.email && Accounts._options.sendVerificationEmail)
         Accounts.sendVerificationEmail(userId, user.email)
 
+    checkOrg : (organization) ->
+      check organization, String
+
+      orgCriteria = {}
+      orgNameNoSpaces = organization.toLowerCase().replace(/ /g, '')
+      orgCriteria["nameNoSpaces"] =  orgNameNoSpaces
+      org = Organization.findOne(orgCriteria)
+
+      if (org && organization)
+        throw new Meteor.Error "invalid-organization", "Organization already exists"
+
+
     addOrg : (organization, appName) ->
       check organization, String
       check appName, Match.OneOf(String, null, undefined)
@@ -45,25 +57,13 @@ Meteor.startup ->
       orgCriteria = {}
       orgNoSpaces = organization.toLowerCase().replace(/ /g, '')
 
-      org = Organization.findOne(orgCriteria)
+      orgId = Organization.insert { name : organization, owner : Meteor.userId(), email : Meteor.user().services.facebook.email}
+      Meteor.users.update Meteor.userId(),{ $set:{'profile.organization': orgId} }
 
-      if(org && organization)
-        throw new Meteor.Error("invalid-organization", "Organization already exists")
-      else
-        orgId = ''
-        unicodeWord = XRegExp("^[\\p{L}\-0-9' ]+$")
-        proposed = organization
+      orgIdObj = {}
+      orgIdObj[orgId] = ["appAdmin"]
+      
+      Meteor.users.update Meteor.userId(), {$set:{'roles' : orgIdObj}}
 
-        if(!unicodeWord.test(proposed))
-          throw new Meteor.Error("invalid-organization", "Invalid organization")
-
-        orgId = Organization.insert { name : organization, owner : Meteor.userId(), email : Meteor.user().services.facebook.email}
-
-        Meteor.users.update Meteor.userId(),{ $set:{'profile.organization': orgId} }
-
-        orgIdObj = {}
-        orgIdObj[orgId] = ["appAdmin"]
-        
-        Meteor.users.update Meteor.userId(), {$set:{'roles' : orgIdObj}}
-
-      console.log "working!!!"
+      emails = [{"address" : Meteor.user().services.facebook.email, "verified" : true}]
+      Meteor.users.update Meteor.userId(), { $set : {"emails" : emails} }

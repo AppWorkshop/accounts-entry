@@ -188,7 +188,6 @@ AccountsEntry.entrySignUpEvents = {
 
   'click #login-facebook': (event, t) ->
     event.preventDefault()
-    console.log("running...")
 
     organization =
       if t.find('input[name="organization"]')
@@ -206,45 +205,46 @@ AccountsEntry.entrySignUpEvents = {
     extraFields = _.pluck(AccountsEntry.settings.extraSignUpFields, 'field')
     filteredExtraFields = _.pick(formValues, extraFields)
 
-    errorMsg = ''
+    unicodeWord = XRegExp("^[\\p{L}\-0-9' ]+$")
 
     if organization.length < 5
-        errMsg = "Please fill out the Organization Name field. It must be at least 7 characters long."
-        Session.set 'entryError', errMsg
+      Session.set 'entryError', "Please fill out the Organization Name field. It must be at least 7 characters long."
+      return
+    else if !unicodeWord.test(organization)
+      Session.set 'entryError', "Invalid organization"
+      return
+    else
+      Session.set 'entryError', ''
+
+    Meteor.call 'checkOrg', organization, (error, result) ->
+      if error
+        Session.set 'entryError', "Organization already exists"
         return
-    else
-        Session.set 'entryError', ''
+      else
+        Session.set 'talkingToServer', false
 
-    formValues = SimpleForm.processForm(event.target)
-    extraFields = _.pluck(AccountsEntry.settings.extraSignUpFields, 'field')
-    filteredExtraFields = _.pick(formValues, extraFields)
+        if AccountsEntry.settings.signInAfterRegistration is true
+          Session.set 'talkingToServer', true
 
-    newUserData = 
-      profile : filteredExtraFields
+          Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']},
+            (err) ->
+              Session.set 'talkingToServer', false
+              if(err)
+                console.log 'error login in with facebook: ', err
+                return
+              else
+                Meteor.call 'addOrg', organization, appName
+                if Session.get 'fromWhere'
+                  Router.go Session.get('fromWhere')
+                  Session.set 'fromWhere', undefined
+                else
+                  Router.go AccountsEntry.settings.dashboardRoute
+          )
+        else
+          if AccountsEntry.settings.emailVerificationPendingRoute
+            Router.go AccountsEntry.settings.emailVerificationPendingRoute
 
-    Session.set 'talkingToServer', true
-
-    if AccountsEntry.settings.signInAfterRegistration is true
-      Session.set 'talkingToServer', true
-      Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']},
-        (err) -> 
-          Session.set 'talkingToServer', false
-          if (err)
-            console.log('error login in with facebook: ', err)
-            return
-          else
-            Meteor.call 'addOrg', organization, appName
-            if Session.get 'fromWhere'
-              Router.go Session.get('fromWhere')
-              Session.set 'fromWhere', undefined
-            else
-              Router.go AccountsEntry.settings.dashboardRoute
-      )
-    else
-      if AccountsEntry.settings.emailVerificationPendingRoute
-        Router.go AccountsEntry.settings.emailVerificationPendingRoute
 }
 
 Template.entrySignUp.helpers(AccountsEntry.entrySignUpHelpers)
-
 Template.entrySignUp.events(AccountsEntry.entrySignUpEvents)
