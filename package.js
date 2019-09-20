@@ -1,25 +1,25 @@
 Package.describe({
   summary: "This is joshowens:accounts-entry, with some features that are not in the official release yet.",
-  version: '1.1.2',
+  version: '1.3.0_1',
   name: "appworkshop:accounts-entry",
   githubUrl: 'https://github.com/AppWorkshop/accounts-entry',
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom("METEOR@1.4.2.3");
+  api.versionsFrom("METEOR@1.8");
 
   api.use([
     'ecmascript',
-    'standard-app-packages',
+    'standard-app-packages@1.0.9',
+    'appworkshop:t9n-export@1.0.0',
     'iron:router@1.0.13',
-    'softwarerero:accounts-t9n@1.3.4',
     'appworkshop:simple-form@0.2.3',
     'sacha:spin@2.3.1'
 
   ], ['client', 'server']);
   // CLIENT
   api.use([
-        'coffeescript',
+        'coffeescript@2.4.1',
         'less',
         'sha']
       , 'client');
